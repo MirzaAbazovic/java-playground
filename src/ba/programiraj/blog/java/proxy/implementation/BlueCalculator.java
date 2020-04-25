@@ -21,7 +21,7 @@ public class BlueCalculator implements Calculator, ScientificCalculator {
 
     @Override
     public void drawFunction(String input) {
-        System.out.println("Draw function with input= " + input);
+        System.out.println("Draw function with input: " + input);
 
     }
 }

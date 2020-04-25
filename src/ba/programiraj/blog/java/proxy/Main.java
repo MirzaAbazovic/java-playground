@@ -14,7 +14,7 @@ public class Main {
 
         Calculator blueCalculator = new BlueCalculator();
 
-        Object proxiedCalculator =  Proxy.newProxyInstance(
+        Object proxiedCalculator = Proxy.newProxyInstance(
                 Calculator.class.getClassLoader(),
                 new Class[]{Calculator.class, ScientificCalculator.class},
                 new CalculatorProxy(blueCalculator)
@@ -23,14 +23,19 @@ public class Main {
         printResult((Calculator) proxiedCalculator);
         printFunction((ScientificCalculator) proxiedCalculator);
 
-        Object proxiedCalculatorUsingLambda =  Proxy.newProxyInstance(
+        Object proxiedCalculatorUsingLambda = Proxy.newProxyInstance(
                 Calculator.class.getClassLoader(),
                 blueCalculator.getClass().getInterfaces(), // same as new Class[]{Calculator.class, ScientificCalculator.class}
                 (proxy, method, arguments) -> {
-                    System.out.println("BEFORE: " + method.getName() );
-                    Object result = method.invoke(blueCalculator, arguments);
-                    System.out.println("AFTER:" + method.getName());
-                    return result;
+                    //owerride default method drawFunction
+                    if (method.getName().equals("drawFunction")) {
+                        System.out.println("~~~ Imagine this is drawing of function " + arguments[0]);
+                        return null;
+                    } else {
+                        Object result = method.invoke(blueCalculator, arguments);
+                        return result;
+                    }
+
                 }
         );
 
@@ -38,7 +43,7 @@ public class Main {
         printFunction((ScientificCalculator) proxiedCalculatorUsingLambda);
 
 
-        Object calculatorLast =  CalculatorProxyFactory.newInstance(blueCalculator);
+        Object calculatorLast = CalculatorProxyFactory.newInstance(blueCalculator);
 
 
         printResult((Calculator) calculatorLast);
@@ -52,11 +57,10 @@ public class Main {
         System.out.println("Multiplication result  = " + calculator.multiply(2, 3));
         System.out.println("Adding result = " + calculator.add(2, 3));
         System.out.println("Increment result = " + calculator.increment(5));
-        System.out.println("**********************************************************");
     }
+
     private static void printFunction(ScientificCalculator calculator) {
         System.out.println("**********************************************************");
         calculator.drawFunction("x=f(x)");
-        System.out.println("**********************************************************");
     }
 }
