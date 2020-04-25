@@ -1,4 +1,4 @@
-package ba.programiraj.blog.java.proxy;
+package ba.programiraj.blog.java.proxy.interfaces;
 
 public interface Calculator {
     int multiply(int first, int second);

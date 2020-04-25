@@ -1,4 +1,7 @@
-package ba.programiraj.blog.java.proxy;
+package ba.programiraj.blog.java.proxy.implementation;
+
+import ba.programiraj.blog.java.proxy.interfaces.Calculator;
+import ba.programiraj.blog.java.proxy.interfaces.ScientificCalculator;
 
 public class BlueCalculator implements Calculator, ScientificCalculator {
     @Override
@@ -17,8 +20,8 @@ public class BlueCalculator implements Calculator, ScientificCalculator {
     }
 
     @Override
-    public void drawFunction(Object input) {
-        System.out.println("Draw function with input.toString() = " + input.toString());
+    public void drawFunction(String input) {
+        System.out.println("Draw function with input= " + input);
 
     }
 }
