@@ -1,0 +1,6 @@
+ba/programiraj/java/proxy/Main.class
+ba/programiraj/java/proxy/proxy/CalculatorProxyFactory.class
+ba/programiraj/java/proxy/implementation/BlueCalculator.class
+ba/programiraj/java/proxy/interfaces/ScientificCalculator.class
+ba/programiraj/java/proxy/interfaces/Calculator.class
+ba/programiraj/java/proxy/proxy/CalculatorProxy.class

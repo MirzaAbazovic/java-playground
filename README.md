@@ -2,4 +2,7 @@
 
 ## Java
 
-- [Java proxy](src/ba/programiraj/blog/java/proxy/JavaProxy.md) 
+- [Java proxy](java-proxy/JavaProxy.md) 
+
+## Spring
+- [Spring AOP](spring-aop/SpringAOP.md)

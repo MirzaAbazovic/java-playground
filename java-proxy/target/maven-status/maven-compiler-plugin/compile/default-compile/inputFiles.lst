@@ -1,0 +1,6 @@
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/Main.java
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/implementation/BlueCalculator.java
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/interfaces/Calculator.java
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/proxy/CalculatorProxy.java
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/interfaces/ScientificCalculator.java
+/home/mabazovic/github/blog-code/java-proxy/src/main/java/ba/programiraj/java/proxy/proxy/CalculatorProxyFactory.java
