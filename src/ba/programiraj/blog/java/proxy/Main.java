@@ -3,23 +3,23 @@ package ba.programiraj.blog.java.proxy;
 import java.lang.reflect.Proxy;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Calculator blueCalculator = new BlueCalculator();
 
-        final Calculator proxiedCalculator = (Calculator) Proxy.newProxyInstance(
+        Object proxiedCalculator =  Proxy.newProxyInstance(
                 Calculator.class.getClassLoader(),
-                new Class[]{Calculator.class},//or
+                new Class[]{Calculator.class, ScientificCalculator.class},
                 new CalculatorProxy(blueCalculator)
         );
 
-        System.out.println("Proxied multiplication result = " + proxiedCalculator.multiply(2, 3));
-        System.out.println("Proxied adding result = " + proxiedCalculator.add(2, 3));
-        System.out.println("Proxied increment result = " + proxiedCalculator.increment(5));
+        printResult((Calculator) proxiedCalculator);
+        printFunction((ScientificCalculator) proxiedCalculator);
 
-        final Calculator proxiedCalculatorUsingLambda = (Calculator) Proxy.newProxyInstance(
+        Object proxiedCalculatorUsingLambda =  Proxy.newProxyInstance(
                 Calculator.class.getClassLoader(),
-                blueCalculator.getClass().getInterfaces(),
+                blueCalculator.getClass().getInterfaces(), // same as new Class[]{Calculator.class, ScientificCalculator.class}
                 (proxy, method, arguments) -> {
                     System.out.println("BEFORE");
                     Object result = method.invoke(blueCalculator, arguments);
@@ -28,9 +28,29 @@ public class Main {
                 }
         );
 
-        System.out.println("Proxied by lambda multiplication result  = " + proxiedCalculatorUsingLambda.multiply(2, 3));
-        System.out.println("Proxied by lambda adding result = " + proxiedCalculatorUsingLambda.add(2, 3));
-        System.out.println("Proxied by lambda increment result = " + proxiedCalculatorUsingLambda.increment(5));
+        printResult((Calculator) proxiedCalculatorUsingLambda);
+        printFunction((ScientificCalculator) proxiedCalculatorUsingLambda);
 
+
+        Object calculatorLast =  CalculatorProxyFactory.newInstance(blueCalculator);
+
+
+        printResult((Calculator) calculatorLast);
+        printFunction((ScientificCalculator) calculatorLast);
+
+
+    }
+
+    private static void printResult(Calculator calculator) {
+        System.out.println("**********************************************************");
+        System.out.println("Multiplication result  = " + calculator.multiply(2, 3));
+        System.out.println("Adding result = " + calculator.add(2, 3));
+        System.out.println("Increment result = " + calculator.increment(5));
+        System.out.println("**********************************************************");
+    }
+    private static void printFunction(ScientificCalculator calculator) {
+        System.out.println("**********************************************************");
+        calculator.drawFunction("x=f(x)");
+        System.out.println("**********************************************************");
     }
 }
