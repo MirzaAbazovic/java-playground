@@ -25,9 +25,8 @@ public class AopApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             final PersonService personService = ctx.getBean(PersonService.class);
-            for (int i = 0; i < 3; i++) {
-                randomPerson(personService);
-            }
+            randomPerson(personService);
+            personService.ping("Hello");
         };
     }
 

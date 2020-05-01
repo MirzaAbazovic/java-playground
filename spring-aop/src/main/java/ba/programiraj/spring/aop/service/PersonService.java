@@ -18,4 +18,9 @@ public class PersonService {
         return isAlive;
     }
 
+    public String ping(String pong) {
+        log.info("inside 'ping' return received {}", pong);
+        return pong;
+    }
+
 }
