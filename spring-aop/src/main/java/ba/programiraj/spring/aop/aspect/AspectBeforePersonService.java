@@ -17,19 +17,19 @@ public class AspectBeforePersonService {
     private static Logger log = LoggerFactory.getLogger(AspectBeforePersonService.class);
 
     @Before("execution(* ba.programiraj.spring.aop.service.PersonService.*(..))")
-    public void beforeAllMethodsInPersonService(JoinPoint joinPoint){
+    public void beforeAllMethodsInPersonService(JoinPoint joinPoint) {
 
-        log.info("Before every method {} in {} | args {}",
-                joinPoint.getSignature().getName() ,
+        log.info("BEFORE every method {} in {} | args {}",
+                joinPoint.getSignature().getName(),
                 joinPoint.getTarget().getClass().getSimpleName(),
                 Arrays.toString(joinPoint.getArgs()));
     }
 
     @Before("execution(* ba.programiraj.spring.aop.service.PersonService.isPersonAlive*(..))")
-    public void beforeIsPersonAliveInPersonService(JoinPoint joinPoint){
+    public void beforeIsPersonAliveInPersonService(JoinPoint joinPoint) {
 
-        log.info("Before 'isPersonAlive' method {} in {} | args {}",
-                joinPoint.getSignature().getName() ,
+        log.info("BEFORE 'isPersonAlive' method {} in {} | args {}",
+                joinPoint.getSignature().getName(),
                 joinPoint.getTarget().getClass().getSimpleName(),
                 Arrays.toString(joinPoint.getArgs()));
     }
