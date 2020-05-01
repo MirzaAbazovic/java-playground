@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.UUID;
+
 @SpringBootApplication
 public class AopApplication {
     private static final Logger log = LoggerFactory.getLogger(AopApplication.class);
@@ -20,14 +22,18 @@ public class AopApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             final PersonService personService = ctx.getBean(PersonService.class);
-            final String personId = "XYY";
-            log.info("Is person with id {} live", personId);
-            final boolean isAlive = personService.isPersonAlive(personId);
-            String liveDead = isAlive ? "live" : "dead";
-            log.info("Person with {} is {}", personId, liveDead);
-
-
+            for (int i = 0; i < 3; i++) {
+                randomPerson(personService);
+            }
         };
+    }
+
+    private void randomPerson(PersonService personService) {
+        final String personId = UUID.randomUUID().toString();
+        log.info("Is person with id {} live", personId);
+        final boolean isAlive = personService.isPersonAlive(personId);
+        String liveDead = isAlive ? "live" : "dead";
+        log.info("Person with {} is {}", personId, liveDead);
     }
 
 }
