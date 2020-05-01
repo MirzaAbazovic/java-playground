@@ -45,7 +45,7 @@ public class AspectAroundPersonService {
         String stuff = signature.toString();
         String arguments = Arrays.toString(joinPoint.getArgs());
         log.error("ERROR handled in aspect Exception in method:{} with arguments {} " +
-                "\nand the full toString: {} The exception is: {}", methodName, arguments, stuff, ex);
+                "\nand the full toString: {} The exception is:", methodName, arguments, stuff, ex);
     }
 
 

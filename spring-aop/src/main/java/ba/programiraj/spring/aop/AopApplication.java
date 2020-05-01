@@ -30,8 +30,9 @@ public class AopApplication {
                 log.info("Ping with Hello -> {}", personService.ping("Hello"));
                 log.info("Ping with null -> {}", personService.ping(null));
                 personService.isPersonAlive(null);
+                log.info("END");
             } catch (Exception e) {
-                log.error("Error: ", e);
+                log.error("Error in app");
             }
 
         };
