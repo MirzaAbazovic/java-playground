@@ -15,15 +15,13 @@ public class PersonService {
     public boolean isPersonAlive(String personId) {
         long startTime = System.nanoTime();
         log.info("START 'isPersonAlive' args: personId: {}", personId);
+        boolean isAlive = false;
 
-        final boolean isAlive = personId.hashCode() % 2 == 0;
-        if (isAlive) {
-            for (int i = 0; i < Integer.MAX_VALUE; i++) {
-                //Slowdown method
-
-            }
+        try {
+            isAlive = personId.hashCode() % 2 == 0;
+        } catch (Exception e) {
+            log.error("ERROR handled in Service : ", e);
         }
-
         log.info("END 'isPersonAlive' return: {}. Execution time {} ms", isAlive, TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime));
         return isAlive;
     }

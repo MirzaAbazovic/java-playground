@@ -24,10 +24,15 @@ public class AopApplication {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            final PersonService personService = ctx.getBean(PersonService.class);
-            randomPerson(personService);
-            log.info("Ping with Hello -> {}", personService.ping("Hello"));
-            log.info("Ping with null -> {}", personService.ping(null));
+            try {
+                final PersonService personService = ctx.getBean(PersonService.class);
+                randomPerson(personService);
+                log.info("Ping with Hello -> {}", personService.ping("Hello"));
+                log.info("Ping with null -> {}", personService.ping(null));
+                personService.isPersonAlive(null);
+            } catch (Exception e) {
+                log.error("Error: ", e);
+            }
 
         };
     }
