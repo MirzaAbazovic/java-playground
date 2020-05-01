@@ -26,7 +26,9 @@ public class AopApplication {
         return args -> {
             final PersonService personService = ctx.getBean(PersonService.class);
             randomPerson(personService);
-            personService.ping("Hello");
+            log.info("Ping with Hello -> {}", personService.ping("Hello"));
+            log.info("Ping with null -> {}", personService.ping(null));
+
         };
     }
 

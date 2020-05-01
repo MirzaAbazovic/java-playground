@@ -18,7 +18,6 @@ public class AspectBeforePersonService {
 
     @Before("execution(* ba.programiraj.spring.aop.service.PersonService.*(..))")
     public void beforeAllMethodsInPersonService(JoinPoint joinPoint) {
-
         log.info("BEFORE every method {} in {} | args {}",
                 joinPoint.getSignature().getName(),
                 joinPoint.getTarget().getClass().getSimpleName(),
@@ -27,7 +26,6 @@ public class AspectBeforePersonService {
 
     @Before("execution(* ba.programiraj.spring.aop.service.PersonService.isPersonAlive*(..))")
     public void beforeIsPersonAliveInPersonService(JoinPoint joinPoint) {
-
         log.info("BEFORE 'isPersonAlive' method {} in {} | args {}",
                 joinPoint.getSignature().getName(),
                 joinPoint.getTarget().getClass().getSimpleName(),
