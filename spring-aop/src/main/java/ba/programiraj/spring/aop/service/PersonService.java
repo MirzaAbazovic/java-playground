@@ -1,4 +1,4 @@
-package ba.programiraj.spring.aop;
+package ba.programiraj.spring.aop.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonService {
     private static final Logger log = LoggerFactory.getLogger(PersonService.class);
+
     public boolean isPersonAlive(String personId) {
-        log.info("Start method isPersonAlive");
-        log.info("personId = " + personId);
+        long startTime = System.nanoTime();
+        log.info("START 'isPersonAlive' args: personId: {}", personId);
+
         final boolean isAlive = personId.hashCode() % 2 == 0;
+
+        log.info("END 'isPersonAlive' return: {}. Execution time {} ms", isAlive, (System.nanoTime() - startTime) / 1000);
         return isAlive;
     }
 
