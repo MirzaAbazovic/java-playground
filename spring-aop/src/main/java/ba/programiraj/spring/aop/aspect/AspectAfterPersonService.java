@@ -15,7 +15,7 @@ public class AspectAfterPersonService {
 
     private static Logger log = LoggerFactory.getLogger(AspectAfterPersonService.class);
 
-    @AfterReturning(pointcut = "execution(* ba.programiraj.spring.aop.service.PersonService.*(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* ba.programiraj.spring.aop.service.PersonServiceImpl.*(..))", returning = "result")
     public void afterEveryMethodInPersonService(JoinPoint joinPoint, Object result) {
         log.info("AFTER 'isPersonAlive' method {} in {} | args {} | returned: {}",
                 joinPoint.getSignature().getName(),

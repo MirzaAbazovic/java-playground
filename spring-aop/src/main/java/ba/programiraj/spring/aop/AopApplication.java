@@ -1,6 +1,7 @@
 package ba.programiraj.spring.aop;
 
 import ba.programiraj.spring.aop.service.PersonService;
+import ba.programiraj.spring.aop.service.PersonServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -25,12 +26,15 @@ public class AopApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             try {
-                final PersonService personService = ctx.getBean(PersonService.class);
+                final PersonService personService = ctx.getBean(PersonServiceImpl.class);
+//                Counter counter = (Counter)personService;
+//                counter.incCounter(RegistryType.CALL, CounterType.CALL_DROPPED);
                 randomPerson(personService);
                 log.info("Ping with Hello -> {}", personService.ping("Hello"));
                 log.info("Ping with null -> {}", personService.ping(null));
                 personService.isPersonAlive(null);
                 log.info("END");
+
             } catch (Exception e) {
                 log.error("Error in app");
             }
