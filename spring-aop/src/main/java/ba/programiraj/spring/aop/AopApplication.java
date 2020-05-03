@@ -3,6 +3,7 @@ package ba.programiraj.spring.aop;
 import ba.programiraj.spring.aop.counter.Counter;
 import ba.programiraj.spring.aop.service.PersonService;
 import ba.programiraj.spring.aop.service.PersonServiceImpl;
+import ba.programiraj.spring.aop.service.PhoneService;
 import ba.programiraj.spring.aop.util.Common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -31,38 +31,45 @@ public class AopApplication {
         return args -> {
             try {
                 final PersonService personService = ctx.getBean(PersonServiceImpl.class);
-                checkIsPersonAlive(personService);
+
+                final String personId = UUID.randomUUID().toString();
+                log.info("Is person with id {} live", personId);
+                final boolean isAlive = personService.isPersonAlive(personId);
+                String liveDead = isAlive ? "live" : "dead";
+                log.info("Person with {} is {} {}", personId, liveDead, System.lineSeparator());
+
                 log.info("Ping with Hello -> {}", personService.ping("Hello"));
                 log.info("Ping with null -> {}", personService.ping(null));
-                Counter counter = (Counter) personService;
 
-                final String simpleName = Common.getPureSimpleName(personService.getClass().getSimpleName());
-                Method[] allMethods = PersonService.class.getDeclaredMethods();
+                printUsage(personService);
 
-                for (Method method : allMethods) {
-                    if (Modifier.isPublic(method.getModifiers())) {
-                        final Long callCount = counter.getCount(simpleName, method.getName());
-                        log.info("Method {} ping called count: {}", method.getName(), callCount);
-                    }
-                }
+                final PhoneService phoneService = ctx.getBean(PhoneService.class);
+                phoneService.call("1");
+                phoneService.call("2");
+                phoneService.call("3");
+                printUsage(phoneService);
 
+//throws exception
+//                personService.isPersonAlive(null);
 
-                personService.isPersonAlive(null);
                 log.info("END");
 
             } catch (Exception e) {
-                log.error("Error in app");
+                log.error("Error in app: ", e);
             }
 
         };
     }
 
-    private void checkIsPersonAlive(PersonService personService) {
-        final String personId = UUID.randomUUID().toString();
-        log.info("Is person with id {} live", personId);
-        final boolean isAlive = personService.isPersonAlive(personId);
-        String liveDead = isAlive ? "live" : "dead";
-        log.info("Person with {} is {} {}", personId, liveDead, System.lineSeparator());
+    private void printUsage(Object service) {
+        Counter counter = (Counter) service;
+        final String simpleName = Common.getPureSimpleName(service.getClass().getSimpleName());
+        Method[] allMethods = service.getClass().getMethods();
+        for (Method method : allMethods) {
+            final Long callCount = counter.getCount(simpleName, method.getName());
+            if (callCount != null && callCount > 0) {
+                log.info("Method {} called {} time(s)", method.getName(), callCount);
+            }
+        }
     }
-
 }

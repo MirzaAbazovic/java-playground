@@ -14,9 +14,16 @@ import java.util.Arrays;
 
 @Component
 @Aspect
-public class AspectBeforePersonService {
+public class AspectBeforeExample {
 
-    private static Logger log = LoggerFactory.getLogger(AspectBeforePersonService.class);
+    private static Logger log = LoggerFactory.getLogger(AspectBeforeExample.class);
+
+    @Before("within(ba.programiraj.spring.aop.service..*)")
+    public void beforeAllMethodsInServicePackage(JoinPoint joinPoint) {
+        final String methodName = joinPoint.getSignature().getName();
+        Counter counter = (Counter) joinPoint.getThis();
+        counter.incCounter(Common.getPureSimpleName(joinPoint.getThis().getClass().getSimpleName()), methodName);
+    }
 
     @Before("execution(* ba.programiraj.spring.aop.service.PersonServiceImpl.*(..))")
     public void beforeAllMethodsInPersonService(JoinPoint joinPoint) {
@@ -25,8 +32,6 @@ public class AspectBeforePersonService {
                 methodName,
                 joinPoint.getTarget().getClass().getSimpleName(),
                 Arrays.toString(joinPoint.getArgs()));
-        Counter counter = (Counter) joinPoint.getThis();
-        counter.incCounter(Common.getPureSimpleName(joinPoint.getThis().getClass().getSimpleName()), methodName);
     }
 
 
