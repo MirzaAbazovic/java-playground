@@ -1,7 +1,9 @@
 package ba.programiraj.spring.aop.counter;
 
 public interface Counter {
-    void incCounter(RegistryType registryType, CounterType counterType);
+    void incCounter(String registryType, String  counterType);
 
-    void incCounter(RegistryType registryType, CounterType counterType, Long incValue);
+    void incCounter(String registryType, String counterType, Long incValue);
+
+    Long getCount(String registryType, String  counterType);
 }

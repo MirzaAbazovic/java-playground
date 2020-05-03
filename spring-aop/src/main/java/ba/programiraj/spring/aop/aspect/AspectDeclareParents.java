@@ -13,13 +13,8 @@ import org.springframework.stereotype.Component;
 public class AspectDeclareParents {
 
     private static Logger log = LoggerFactory.getLogger(AspectDeclareParents.class);
-//
     @DeclareParents(value = "ba.programiraj.spring.aop.service..*", defaultImpl = CounterImpl.class)
     public static Counter counter;
 
-//    @Before("ba.programiraj.spring.aop.service.PersonService() && this(ba.programiraj.spring.aop.counter.Counter)")
-//    public void count(Counter counter, RegistryType registryType, CounterType counterType) {
-//        counter.incCounter(registryType, counterType);
-//    }
 
 }
